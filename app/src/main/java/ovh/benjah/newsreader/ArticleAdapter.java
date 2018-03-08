@@ -1,5 +1,7 @@
 package ovh.benjah.newsreader;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +15,9 @@ import java.util.List;
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHolder> {
 
     private List<FakeNews> articles;
-    private HomeActivity homeActivity;
 
-    public ArticleAdapter(HomeActivity currentHomeActivity, List<FakeNews> list) {
+    public ArticleAdapter(List<FakeNews> list) {
         articles = list;
-        homeActivity = currentHomeActivity;
     }
 
     @Override
@@ -47,12 +47,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
         public MyViewHolder(final View itemView) {
             super(itemView);
 
+            final Context context = itemView.getContext();
             titleView = ((TextView) itemView.findViewById(R.id.name));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    homeActivity.startArticleActivity(currentNews);
+                    Intent intent = new Intent(context, ArticleActivity.class);
+                    intent.putExtra("html_article", currentNews.htmlContent);
+                    context.startActivity(intent);
                 }
             });
         }

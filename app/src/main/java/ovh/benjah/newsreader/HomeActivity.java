@@ -20,13 +20,7 @@ public class HomeActivity extends AppCompatActivity {
         final RecyclerView rv = (RecyclerView) findViewById(R.id.list);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
-        ArticleAdapter adapter = new ArticleAdapter(this, FakeNewsList.all);
+        ArticleAdapter adapter = new ArticleAdapter(FakeNewsList.all);
         rv.setAdapter(adapter);
-    }
-
-    public void startArticleActivity(FakeNews fakeNews) {
-        Intent intent = new Intent(HomeActivity.this, ArticleActivity.class);
-        intent.putExtra("html_article", fakeNews.htmlContent);
-        startActivity(intent);
     }
 }
